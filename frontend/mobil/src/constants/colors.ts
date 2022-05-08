@@ -1,6 +1,7 @@
 export const Colors = {
   background: '#f2f1f0',
   modalBackground: '#00000099',
+  shadow: '#8190A43F',
   header: {
     background: '#93c93d',
     tint: '#ffffff',
