@@ -11,12 +11,15 @@
 import {NavigationContainer} from '@react-navigation/native'
 import React from 'react'
 import {StyleSheet, useColorScheme} from 'react-native'
+import {enableLatestRenderer} from 'react-native-maps'
 
 import {Colors} from 'react-native/Libraries/NewAppScreen'
 import {RootStackScreen} from './src/navigation/rootStack'
 import {AppProvider} from './src/providers/appProvider'
 
 const App = () => {
+  enableLatestRenderer()
+
   const isDarkMode = useColorScheme() === 'dark'
 
   const backgroundStyle = {
