@@ -29,7 +29,7 @@ export const CustomButton = (props: CustomButtonProps) => {
 const styles = StyleSheet.create({
   button: {
     backgroundColor: Colors.button.background,
-    borderRadius: 15,
+    borderRadius: 10,
     paddingHorizontal: spaces.extraLarge,
     paddingVertical: spaces.normal,
     alignItems: 'center',

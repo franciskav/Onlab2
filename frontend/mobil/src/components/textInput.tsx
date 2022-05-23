@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
   },
   textInput: {
     borderColor: Colors.textInput.border,
-    borderRadius: 15,
+    borderRadius: 10,
     borderWidth: 1,
     paddingHorizontal: spaces.normal,
     paddingVertical: spaces.normal,
