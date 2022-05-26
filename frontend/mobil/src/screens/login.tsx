@@ -126,7 +126,7 @@ export const LoginScreen = () => {
         title={Strings.login.login}
         onPress={() => {
           if (validate()) {
-            login(email, password, () => navigation.replace('MAP'))
+            login({email, password}, () => navigation.replace('MAP'))
           }
         }}
         style={margins.mtExtraLarge}
