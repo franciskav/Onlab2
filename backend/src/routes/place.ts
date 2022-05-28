@@ -3,9 +3,25 @@ import placeController from '../controllers/place'
 
 const router = express.Router()
 
-router.get('/getPlaces', placeController.getPlaces)
-router.post('/createPlace', placeController.createPlace)
-router.put('/updatePlace', placeController.updatePlace)
-router.delete('/deletePlace', placeController.deletePlace)
+router.get(
+  '/getPlaces',
+  placeController.authenticate,
+  placeController.getPlaces,
+)
+router.post(
+  '/createPlace',
+  placeController.authenticate,
+  placeController.createPlace,
+)
+router.post(
+  '/updatePlace',
+  placeController.authenticate,
+  placeController.updatePlace,
+)
+router.delete(
+  '/deletePlace/:id',
+  placeController.authenticate,
+  placeController.deletePlace,
+)
 
 export = router

@@ -7,7 +7,7 @@ export interface Address {
 }
 
 export interface Place {
-  id: string
+  id?: string
   name: string
   address: Address
   coordinates: Coordinates
