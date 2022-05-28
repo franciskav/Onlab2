@@ -3,7 +3,7 @@ import {resetNavigation} from '../navigation/navigation'
 import asyncStorageService from './services/asyncStorageService'
 
 const Network = axios.create({
-  baseURL: 'http://192.168.1.217:3000',
+  baseURL: 'http://192.168.0.136:3000',
   timeout: 30000,
   headers: {
     'Content-Type': 'application/json',
@@ -25,7 +25,7 @@ Network.interceptors.request.use(
     if (accessToken) {
       reqConfig.headers = {
         ...reqConfig.headers,
-        Authorization: 'Bearer' + accessToken,
+        Authorization: 'Bearer ' + accessToken,
       }
     }
     return reqConfig

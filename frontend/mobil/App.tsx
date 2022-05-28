@@ -9,16 +9,22 @@
  */
 
 import {NavigationContainer} from '@react-navigation/native'
-import React from 'react'
+import React, {useEffect} from 'react'
 import {StyleSheet, useColorScheme} from 'react-native'
 import {enableLatestRenderer} from 'react-native-maps'
 
 import {Colors} from 'react-native/Libraries/NewAppScreen'
 import {RootStackScreen} from './src/navigation/rootStack'
 import {AppProvider} from './src/providers/appProvider'
+import Geocoder from 'react-native-geocoding'
 
 const App = () => {
   enableLatestRenderer()
+  const API_KEY = 'AIzaSyAp9Gy_S-VNQbgM1_p0elPUqA0oZO3NJYM'
+
+  useEffect(() => {
+    Geocoder.init(API_KEY, {language: 'hu'})
+  })
 
   const isDarkMode = useColorScheme() === 'dark'
 

@@ -14,6 +14,7 @@ import InfoScreen from '../screens/info'
 import {LoginScreen} from '../screens/login'
 import MapScreen from '../screens/map'
 import {SignUpScreen} from '../screens/signUp'
+import SplashScreen from '../screens/splash'
 
 export type RootStackParamList = {
   SPLASH: undefined
@@ -31,11 +32,11 @@ const RootStack = createStackNavigator<RootStackParamList>()
 export function RootStackScreen() {
   return (
     <RootStack.Navigator screenOptions={defaultOptions}>
-      {/* <RootStack.Screen
+      <RootStack.Screen
         name={'SPLASH'}
         component={SplashScreen}
         options={{headerShown: false}}
-      /> */}
+      />
       <RootStack.Screen
         name={'LOGIN'}
         component={LoginScreen}

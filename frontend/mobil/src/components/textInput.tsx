@@ -98,6 +98,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   textInput: {
+    backgroundColor: Colors.textInput.background,
     borderColor: Colors.textInput.border,
     borderRadius: 10,
     borderWidth: 1,

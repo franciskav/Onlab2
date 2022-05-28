@@ -24,13 +24,13 @@ interface Error {
 }
 
 const AddLocatinScreen = () => {
-  const {createRequest} = useContext(WasteContext)
+  const {createPlace} = useContext(WasteContext)
 
   const [name, setName] = useState<string>('')
   const [address, setAddress] = useState<Address>({
-    zip_code: '',
+    zipCode: '',
     city: '',
-    street_address: '',
+    streetAddress: '',
   })
   const [wasteTypes, setWasteTypes] = useState<string[]>([])
   const [errors, setErrors] = useState<Error>({})
@@ -48,7 +48,7 @@ const AddLocatinScreen = () => {
       errors.name = Strings.errors.empty
     }
 
-    if (!(address.zip_code && address.city && address.street_address)) {
+    if (!(address.zipCode && address.city && address.streetAddress)) {
       errors.address = Strings.errors.empty
     }
 
@@ -88,9 +88,9 @@ const AddLocatinScreen = () => {
               ref={zipCodeRef}
               label={Strings.addLocation.zipCode}
               textInputProps={{
-                value: address.zip_code,
+                value: address.zipCode,
                 onChangeText: value => {
-                  setAddress({...address, zip_code: value})
+                  setAddress({...address, zipCode: value})
                 },
                 returnKeyType: 'next',
                 onSubmitEditing: () => cityRef?.current?.focus?.(),
@@ -116,9 +116,9 @@ const AddLocatinScreen = () => {
             ref={streetRef}
             label={Strings.addLocation.streetAddress}
             textInputProps={{
-              value: address.street_address,
+              value: address.streetAddress,
               onChangeText: value => {
-                setAddress({...address, street_address: value})
+                setAddress({...address, streetAddress: value})
               },
             }}
             error={errors.address}
@@ -162,24 +162,19 @@ const AddLocatinScreen = () => {
           onPress={() => {
             if (validate()) {
               Geocoder.from(
-                `${address.zip_code} ${address.city}, ${address.street_address}`,
+                `${address.zipCode} ${address.city}, ${address.streetAddress}`,
               )
                 .then(json => {
                   var location = json.results[0].geometry.location
-                  createRequest({
-                    type: 'új',
-                    comment: '',
-                    place: {
-                      _id: '',
-                      name: name,
-                      address: address,
-                      coordinates: {
-                        latitude: location.lat,
-                        longitude: location.lng,
-                      },
-                      garbage_type: wasteTypes,
+                  createPlace({
+                    id: '',
+                    name: name,
+                    address: address,
+                    coordinates: {
+                      latitude: location.lat,
+                      longitude: location.lng,
                     },
-                    _id: '',
+                    garbageType: wasteTypes,
                   })
                 })
                 .catch(error => console.warn(error))

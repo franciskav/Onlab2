@@ -90,6 +90,12 @@ const MapScreen = () => {
       },
       error => {
         console.log(error)
+        setRegion({
+          latitude: 47.497913,
+          longitude: 19.040236,
+          latitudeDelta: 0.03,
+          longitudeDelta: 0.03,
+        })
       },
       {
         enableHighAccuracy: false,
@@ -175,7 +181,11 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.background,
   },
   separator: {backgroundColor: Colors.card.border, height: 1},
-  contentContainer: {padding: spaces.small, flexGrow: 1},
+  contentContainer: {
+    paddingHorizontal: spaces.medium,
+    paddingVertical: spaces.normal,
+    flexGrow: 1,
+  },
 })
 
 export default MapScreen

@@ -29,10 +29,10 @@ export const CustomMarker = (props: MarkerProps) => {
         <View style={styles.container}>
           <Text style={styles.name}>{props.place.name}</Text>
           <Text style={[styles.address, styles.contain]}>
-            {`${props.place.address.zip_code} ${props.place.address.city}, ${props.place.address.street_address}`}
+            {`${props.place.address.zipCode} ${props.place.address.city}, ${props.place.address.streetAddress}`}
           </Text>
           <Text style={[styles.types, margins.mtNormal]}>
-            {props.place.garbage_type.join(', ')}
+            {props.place.garbageType.join(', ')}
           </Text>
         </View>
       </Callout>

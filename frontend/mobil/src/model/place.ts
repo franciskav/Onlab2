@@ -1,15 +1,15 @@
 import {Coordinates} from './coordinates'
 
 export interface Address {
-  zip_code: string
+  zipCode: string
   city: string
-  street_address: string
+  streetAddress: string
 }
 
 export interface Place {
-  _id: string
+  id: string
   name: string
   address: Address
   coordinates: Coordinates
-  garbage_type: string[]
+  garbageType: string[]
 }

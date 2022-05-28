@@ -18,15 +18,15 @@ interface PlaceListCardProps {
 export const PlaceListCard = (props: PlaceListCardProps) => {
   return (
     <TouchableOpacity
-      style={[styles.card, margins.mbSmall]}
+      style={[styles.card, margins.mbNormal]}
       onPress={props.onItemPress}>
       <Text style={textStyle.title}>{props.place.name}</Text>
       <Text
         style={
           styles.address
-        }>{`${props.place.address.zip_code} ${props.place.address.city}, ${props.place.address.street_address}`}</Text>
+        }>{`${props.place.address.zipCode} ${props.place.address.city}, ${props.place.address.streetAddress}`}</Text>
       <Text style={[styles.types, margins.mtNormal]}>
-        {props.place.garbage_type.join(', ')}
+        {props.place.garbageType.join(', ')}
       </Text>
       <TouchableOpacity
         style={styles.touchable}

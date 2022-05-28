@@ -9,6 +9,7 @@ export const Colors = {
   textInput: {
     border: '#005317',
     borderError: '#bc4749',
+    background: '#ffffff',
   },
   button: {
     background: '#005317',

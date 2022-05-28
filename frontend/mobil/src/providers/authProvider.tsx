@@ -1,6 +1,10 @@
 import React, {createContext, useState} from 'react'
 import {Alert} from 'react-native'
 import {Strings} from '../constants/localization'
+import {LoginDto} from '../model/loginDto'
+import {SignUpDto} from '../model/signUpDto'
+import authApi from '../utility/api/authApi'
+import asyncStorageService from '../utility/services/asyncStorageService'
 
 export enum AuthState {
   'NONE',
@@ -10,8 +14,8 @@ export enum AuthState {
 
 interface AuthContextProps {
   setUserData: (user: any) => void
-  login: (email: string, password: string, succes: () => void) => void
-  signUp: (email: string, password: string, succes: () => void) => void
+  login: (loginDto: LoginDto, succes: () => void) => void
+  signUp: (signUpDto: SignUpDto, succes: () => void) => void
   logOut: () => void
   checkAuthState: () => void
 }
@@ -29,12 +33,33 @@ export const AuthProvider: React.FC = ({children}) => {
 
   const setUserData = (user: any) => {}
 
-  const login = (email: string, password: string, succes: () => void) => {
-    succes()
+  const login = async (loginDto: LoginDto, succes: () => void) => {
+    try {
+      const response = await authApi.login(loginDto)
+      asyncStorageService.saveAuthInfo(response)
+      succes()
+    } catch (error: any) {
+      Alert.alert(error.response.data.message)
+    }
   }
 
-  const signUp = (email: string, password: string, succes: () => void) => {}
-  const logOut = () => {}
+  const signUp = async (signUpDto: SignUpDto, succes: () => void) => {
+    try {
+      const response = await authApi.signUp(signUpDto)
+      asyncStorageService.saveAuthInfo(response)
+      succes()
+    } catch (error: any) {
+      Alert.alert(error.response.data.message)
+    }
+  }
+
+  const logOut = async () => {
+    try {
+      asyncStorageService.clearAuthinfo()
+    } catch (error) {
+      console.warn('LOGOUT_ERROR', error)
+    }
+  }
 
   const checkAuthState = () => {}
 

@@ -16,19 +16,21 @@ import {isValidEmail} from '../utility/helpers/validation'
 export interface SignUpScreenProps {}
 
 interface SignUpError {
+  name?: string
   email?: string
   password?: string
   passwordAgain?: string
 }
 
 export const SignUpScreen = () => {
+  const [name, setName] = useState<string>('')
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
   const [passwordAgain, setPasswordAgain] = useState<string>('')
   const [errors, setErrors] = useState<SignUpError>({})
   const {signUp} = useContext(AuthContext)
 
-  let nameRef = useRef<TextInput>()
+  let emailRef = useRef<TextInput>()
   let passwordRef = useRef<TextInput>()
   let passwordAgainRef = useRef<TextInput>()
 
@@ -36,6 +38,10 @@ export const SignUpScreen = () => {
 
   const validate = () => {
     let errors: SignUpError = {}
+
+    if (!name) {
+      errors.name = Strings.errors.empty
+    }
 
     if (!email) {
       errors.email = Strings.errors.empty
@@ -69,6 +75,21 @@ export const SignUpScreen = () => {
       enableAutomaticScroll={true}>
       <CustomTextInput
         style={[margins.mbMedium, margins.mtExtraLarge]}
+        label={Strings.signUp.name}
+        textInputProps={{
+          value: name,
+          onChangeText: value => {
+            setName(value)
+          },
+          autoCapitalize: 'words',
+          returnKeyType: 'next',
+          onSubmitEditing: () => emailRef?.current?.focus?.(),
+        }}
+        error={errors.name}
+      />
+      <CustomTextInput
+        ref={emailRef}
+        style={[margins.mbMedium]}
         label={Strings.signUp.email}
         textInputProps={{
           value: email,
@@ -78,7 +99,7 @@ export const SignUpScreen = () => {
           keyboardType: 'email-address',
           autoCapitalize: 'none',
           returnKeyType: 'next',
-          onSubmitEditing: () => nameRef?.current?.focus?.(),
+          onSubmitEditing: () => passwordRef?.current?.focus?.(),
         }}
         error={errors.email}
       />
@@ -114,7 +135,7 @@ export const SignUpScreen = () => {
         title={Strings.signUp.signUp}
         onPress={() => {
           if (validate()) {
-            //signUp(email, password, () => navigation.replace('MAP'))
+            signUp({name, email, password}, () => navigation.replace('MAP'))
           }
         }}
       />

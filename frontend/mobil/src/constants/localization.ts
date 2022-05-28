@@ -3,11 +3,11 @@ import LocalizedStrings from 'react-native-localization'
 export const Strings = new LocalizedStrings({
   hu: {
     splash: {
-      recycleBin: 'Közösségi\nRecycle Bin',
+      appName: 'Zöld\nközösség',
     },
     login: {
       title: 'Bejelentkezés',
-      recycleBin: 'Közösségi\nRecycle Bin',
+      appName: 'Zöld\nközösség',
       email: 'Email cím',
       password: 'Jelszó',
       login: 'Bejelentkezés',

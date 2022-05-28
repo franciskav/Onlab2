@@ -30,7 +30,7 @@ interface Error {
 
 const EditLocatinScreen = () => {
   const {} = useContext(AuthContext)
-  const {createRequest} = useContext(WasteContext)
+  const {updatePlace, deletePlace} = useContext(WasteContext)
 
   useEffect(() => {}, [])
 
@@ -40,7 +40,7 @@ const EditLocatinScreen = () => {
   const [name, setName] = useState<string>(route.params.place.name)
   const [address, setAddress] = useState<Address>(route.params.place.address)
   const [wasteTypes, setWasteTypes] = useState<string[]>(
-    route.params.place.garbage_type,
+    route.params.place.garbageType,
   )
   const [comment, setComment] = useState<string>('')
   const [errors, setErrors] = useState<Error>({})
@@ -68,27 +68,22 @@ const EditLocatinScreen = () => {
     return Object.keys(errors).length === 0
   }
 
-  const makeRequest = (type: 'törlés' | 'módosítás') => {
+  const update = () => {
     if (validate()) {
       Geocoder.from(
-        `${address.zip_code} ${address.city}, ${address.street_address}`,
+        `${address.zipCode} ${address.city}, ${address.streetAddress}`,
       )
         .then(json => {
           var location = json.results[0].geometry.location
-          createRequest({
-            type: type,
-            comment: comment,
-            place: {
-              _id: route.params.place._id,
-              name: name,
-              address: address,
-              coordinates: {
-                latitude: location.lat,
-                longitude: location.lng,
-              },
-              garbage_type: wasteTypes,
+          updatePlace({
+            id: route.params.place.id,
+            name: name,
+            address: address,
+            coordinates: {
+              latitude: location.lat,
+              longitude: location.lng,
             },
-            _id: '',
+            garbageType: wasteTypes,
           })
         })
         .catch(error => console.warn(error))
@@ -125,9 +120,9 @@ const EditLocatinScreen = () => {
               ref={zipCodeRef}
               label={Strings.addLocation.zipCode}
               textInputProps={{
-                value: address.zip_code,
+                value: address.zipCode,
                 onChangeText: value => {
-                  setAddress({...address, zip_code: value})
+                  setAddress({...address, zipCode: value})
                 },
                 returnKeyType: 'next',
                 onSubmitEditing: () => cityRef?.current?.focus?.(),
@@ -153,9 +148,9 @@ const EditLocatinScreen = () => {
             ref={streetRef}
             label={Strings.addLocation.streetAddress}
             textInputProps={{
-              value: address.street_address,
+              value: address.streetAddress,
               onChangeText: value => {
-                setAddress({...address, street_address: value})
+                setAddress({...address, streetAddress: value})
               },
             }}
             error={errors.address}
@@ -194,30 +189,18 @@ const EditLocatinScreen = () => {
             </View>
           )
         })}
-        <CustomTextInput
-          style={margins.mtExtraLarge}
-          label={Strings.editLocation.comment}
-          textInputProps={{
-            value: comment,
-            onChangeText: value => {
-              setComment(value)
-            },
-            multiline: true,
-            maxLength: 200,
-          }}
-          error={errors.address}
-        />
         <CustomButton
           title={Strings.editLocation.modify}
           onPress={() => {
-            makeRequest('módosítás')
+            update()
           }}
           style={margins.mtBig}
         />
         <CustomButton
           title={Strings.editLocation.delete}
           onPress={() => {
-            makeRequest('törlés')
+            deletePlace(route.params.place.id)
+            navigation.goBack()
           }}
           style={margins.mtNormal}
         />

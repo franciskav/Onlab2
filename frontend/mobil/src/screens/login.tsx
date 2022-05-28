@@ -90,7 +90,7 @@ export const LoginScreen = () => {
       <View style={[styles.row, margins.mtExtraLarge, margins.mbExtraLarge]}>
         <Image source={Icons.appIcon} />
         <Text style={[textStyle.bigTitle, styles.title, margins.mlNormal]}>
-          {Strings.login.recycleBin}
+          {Strings.login.appName}
         </Text>
       </View>
       <View>
