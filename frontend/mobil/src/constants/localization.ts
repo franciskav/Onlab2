@@ -3,7 +3,7 @@ import LocalizedStrings from 'react-native-localization'
 export const Strings = new LocalizedStrings({
   hu: {
     splash: {
-      appName: 'Zöld\nközösség',
+      appName: 'Zöld közösség',
     },
     login: {
       title: 'Bejelentkezés',

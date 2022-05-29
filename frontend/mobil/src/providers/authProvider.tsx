@@ -1,6 +1,6 @@
+import jwtDecode from 'jwt-decode'
 import React, {createContext, useState} from 'react'
 import {Alert} from 'react-native'
-import {Strings} from '../constants/localization'
 import {LoginDto} from '../model/loginDto'
 import {SignUpDto} from '../model/signUpDto'
 import authApi from '../utility/api/authApi'
@@ -18,6 +18,7 @@ interface AuthContextProps {
   signUp: (signUpDto: SignUpDto, succes: () => void) => void
   logOut: () => void
   checkAuthState: () => void
+  authState: AuthState
 }
 
 export const AuthContext = createContext<AuthContextProps>({
@@ -26,10 +27,12 @@ export const AuthContext = createContext<AuthContextProps>({
   signUp: () => {},
   logOut: () => {},
   checkAuthState: () => {},
+  authState: AuthState.NONE,
 })
 
 export const AuthProvider: React.FC = ({children}) => {
   const [user, setUser] = useState<any | undefined>(undefined)
+  const [authState, setAuthState] = useState<AuthState>(AuthState.NONE)
 
   const setUserData = (user: any) => {}
 
@@ -61,7 +64,18 @@ export const AuthProvider: React.FC = ({children}) => {
     }
   }
 
-  const checkAuthState = () => {}
+  const checkAuthState = async () => {
+    try {
+      const accessToken = await asyncStorageService.getAccessToken()
+      if (accessToken) {
+        setAuthState(AuthState.LOGGED_IN)
+      } else {
+        setAuthState(AuthState.LOGGED_OUT)
+      }
+    } catch (error: any) {
+      setAuthState(AuthState.LOGGED_OUT)
+    }
+  }
 
   return (
     <AuthContext.Provider
@@ -71,6 +85,7 @@ export const AuthProvider: React.FC = ({children}) => {
         signUp,
         logOut,
         checkAuthState,
+        authState,
       }}>
       {children}
     </AuthContext.Provider>
