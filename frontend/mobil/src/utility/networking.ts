@@ -1,9 +1,10 @@
 import axios from 'axios'
 import {resetNavigation} from '../navigation/navigation'
 import asyncStorageService from './services/asyncStorageService'
+import Config from 'react-native-config'
 
 const Network = axios.create({
-  baseURL: 'http://192.168.0.136:3000',
+  baseURL: Config.BASE_URL,
   timeout: 30000,
   headers: {
     'Content-Type': 'application/json',

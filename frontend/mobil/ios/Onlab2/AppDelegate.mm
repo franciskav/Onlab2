@@ -8,6 +8,8 @@
 
 #import <GoogleMaps/GoogleMaps.h>
 
+#import "ReactNativeConfig.h"
+
 #if RCT_NEW_ARCH_ENABLED
 #import <React/CoreModulesPlugins.h>
 #import <React/RCTCxxBridgeDelegate.h>
@@ -32,7 +34,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-  [GMSServices provideAPIKey:@"AIzaSyAp9Gy_S-VNQbgM1_p0elPUqA0oZO3NJYM"];
+  NSString *mapsApiKey = [ReactNativeConfig envFor:@"GOOGLE_API_KEY"];
+  [GMSServices provideAPIKey: mapsApiKey];
 
   RCTAppSetupPrepareApp(application);
 
